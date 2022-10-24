@@ -10,6 +10,7 @@ module.exports = {
         .setName('hangang')
         .setDescription('한강 물 온도 체크'),
     async execute(interaction) {
+        interaction.deferReply()
         axios.get("https://hangang.ivlis.kr/aapi.php?type=dgr")
             .then(function(response) {
             dgr = String(response.data); // dgr은 단위 포함 (17℃)
@@ -32,7 +33,7 @@ module.exports = {
             .setColor("Blue")
             .setDescription(`${dgr}\n${time}`)
             .setFooter({text:'장난으로만 봐주세요 • 자살예방상담전화 1393'})
-            interaction.reply({ embeds : [resultEmbed] })
+            interaction.editReply({ embeds : [resultEmbed] })
         })
         })
     },
